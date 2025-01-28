@@ -2,8 +2,11 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js'
-import Chillen from '/fonts/Chillen_Regular.json?url'
+import Chillen from '/fonts/LEMON MILK_Regular.json?url'
 import GUI from 'lil-gui'
+import Stats from 'three/examples/jsm/libs/stats.module.js'
+import textureimage from '/Textures/1.png'
+
 /**
  * Base
 */
@@ -15,7 +18,7 @@ document.body.appendChild(renderer.domElement)
 
 const controls = new OrbitControls(camera, renderer.domElement)
 controls.enableDamping = true
-renderer.render(scene, camera)
+// renderer.render(scene, camera)
 camera.position.z = 5
 
 
@@ -35,31 +38,45 @@ window.addEventListener('resize', () => {
  * Debug
  */
 const gui = new GUI()
+const stats = new Stats()
+stats.showPanel(0)
+document.body.appendChild(stats.dom)
+const Axes = new THREE.AxesHelper(5)
+scene.add(Axes)
 
+/**
+ * Texture Loader
+ */
+const loader = new THREE.TextureLoader()
+const texture = loader.load(textureimage)
 
 /**
  * 3D text
  */
 const fontLoader = new FontLoader()
 fontLoader.load(Chillen ,  (font) => {
+  //Debug
   console.log(font)
-  const geometry = new TextGeometry('Hussam Al-maswari', {
+  const geometry = new TextGeometry('H u s s a m', {
     font: font,
-		size:100,
-		depth: 5,
-		curveSegments: 2,
+		size:1,
+		depth: 0.1,
+		curveSegments: 5,
 		bevelEnabled: true,
-		bevelThickness: 10,
-		bevelSize: 8,
+		bevelThickness: 0.2,
+		bevelSize: 0.2,
 		bevelOffset: 0,
-		bevelSegments: 2
+		bevelSegments: 5
   })
-  const material = new THREE.MeshBasicMaterial()
+  const material = new THREE.MeshMatcapMaterial({matcap: texture})
   const text = new THREE.Mesh(geometry, material)
   scene.add(text)
   gui.add(material, "wireframe" , false)
-  
+  geometry.center()
 })
+
+
+
 
 /**
  * Lights
