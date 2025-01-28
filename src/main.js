@@ -5,7 +5,8 @@ import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js'
 import Chillen from '/fonts/LEMON MILK_Regular.json?url'
 import GUI from 'lil-gui'
 import Stats from 'three/examples/jsm/libs/stats.module.js'
-import textureimage from '/Textures/1.png'
+import texturetext from '/Textures/1.png'
+import texturedount from '/Textures/3.png'
 
 /**
  * Base
@@ -48,7 +49,8 @@ scene.add(Axes)
  * Texture Loader
  */
 const loader = new THREE.TextureLoader()
-const texture = loader.load(textureimage)
+const texture3D = loader.load(texturetext)
+const dount3D = loader.load(texturedount)
 
 /**
  * 3D text
@@ -57,7 +59,7 @@ const fontLoader = new FontLoader()
 fontLoader.load(Chillen ,  (font) => {
   //Debug
   console.log(font)
-  const geometry = new TextGeometry('H u s s a m', {
+  const geometry = new TextGeometry('M A K E   Y O U R \n O W N \n C R A T I V I T Y \n -------------------', {
     font: font,
 		size:1,
 		depth: 0.1,
@@ -68,11 +70,33 @@ fontLoader.load(Chillen ,  (font) => {
 		bevelOffset: 0,
 		bevelSegments: 5
   })
-  const material = new THREE.MeshMatcapMaterial({matcap: texture})
+  const material = new THREE.MeshMatcapMaterial({matcap: texture3D})
   const text = new THREE.Mesh(geometry, material)
   scene.add(text)
   gui.add(material, "wireframe" , false)
   geometry.center()
+
+  const torus = new THREE.TorusGeometry(0.6,0.4,14,40)
+  const material2 = new THREE.MeshMatcapMaterial({matcap: dount3D})
+
+  for(let i = 0; i < 1000; i++) {
+    const dount = new THREE.Mesh(
+      torus,
+      material2
+      )
+    
+    dount.position.z = (Math.random() - 0.5 ) * 10 * i
+    dount.position.y = (Math.random() - 0.5 ) * 10 * i
+    dount.position.x = (Math.random() - 0.5 ) * 10 * i
+    dount.rotation.x = Math.random() * Math.PI
+    dount.rotation.y = Math.random() * Math.PI
+    dount.rotation.z = Math.random() * Math.PI
+    const scale = Math.random()
+    dount.scale.set(scale,scale,scale)
+    scene.add(dount)
+
+  }
+
 })
 
 
