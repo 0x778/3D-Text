@@ -85,9 +85,9 @@ fontLoader.load(Chillen ,  (font) => {
       material2
       )
     
-    dount.position.z = (Math.random() - 0.5 ) * 10 * i
-    dount.position.y = (Math.random() - 0.5 ) * 10 * i
-    dount.position.x = (Math.random() - 0.5 ) * 10 * i
+    dount.position.z = (Math.random() - 0.5 ) * 10 * (i/2)
+    dount.position.y = (Math.random() - 0.5 ) * 10 * (i/2)
+    dount.position.x = (Math.random() - 0.5 ) * 10 * (i/2)
     dount.rotation.x = Math.random() * Math.PI
     dount.rotation.y = Math.random() * Math.PI
     dount.rotation.z = Math.random() * Math.PI
