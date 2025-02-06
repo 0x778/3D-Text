@@ -79,12 +79,12 @@ fontLoader.load(Chillen ,  (font) => {
   const torus = new THREE.TorusGeometry(0.6,0.4,14,40)
   const material2 = new THREE.MeshMatcapMaterial({matcap: dount3D})
 
-  for(let i = 0; i < 1000; i++) {
+  for(let i = 3; i < 1000; i++) {
     const dount = new THREE.Mesh(
       torus,
       material2
       )
-    
+      
     dount.position.z = (Math.random() - 0.5 ) * 10 * (i/2)
     dount.position.y = (Math.random() - 0.5 ) * 10 * (i/2)
     dount.position.x = (Math.random() - 0.5 ) * 10 * (i/2)
